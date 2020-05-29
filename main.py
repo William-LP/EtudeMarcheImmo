@@ -13,7 +13,7 @@ maison_a_renover_max = 320
 maison_a_renover_pas = 8
 proprietes_privees_max = 22
 proprietes_privees_pas = 1
-superimmo_max = 1384
+superimmo_max = 1381
 superimmo_pas = 1
 
 now = datetime.datetime.now()
@@ -21,7 +21,7 @@ print("Starting time : " + now.strftime("%Y-%m-%d %H:%M:%S"))
 
 code_postal = {}
 print("\n")
-print("SCRAPPING : ")
+
 for i in range(0, maison_a_renover_max + maison_a_renover_pas, maison_a_renover_pas):
     print('maison-a-renover.fr' + ' [%d%%]\r' % (i * 100 / maison_a_renover_max), end="")
     url = "http://www.maison-a-renover.fr/immobilier/toutes-annonces?start=" + str(i)
@@ -75,9 +75,13 @@ for i in range(1, superimmo_max, superimmo_pas):
                 else:
                     code_postal[cp] = 1
 
-for k, v in code_postal.items():
-    print(k, ':', v)
 
+f = open("data.txt", "a")
+
+for k, v in code_postal.items():
+    # print(k, ':', v)
+    f.write(str(k) + ':' + str(v) + '\n')
+f.close()
 
 now = datetime.datetime.now()
 print("Ending time : " + now.strftime("%Y-%m-%d %H:%M:%S"))
